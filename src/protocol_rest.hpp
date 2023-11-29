@@ -99,11 +99,13 @@ inline std::optional<default_error_t> protocol_rest_t::parse_headers(std::string
 
 inline std::optional<default_error_t> protocol_rest_t::parse_content() noexcept {
     std::string_view json_doc = base_protocol.get_content();
+    /*
     if (base_protocol.parsed.content_type != "application/json") {
         elements.emplace<std::nullptr_t>();
         return std::nullopt; // Only json parser is currently implemented
         // return default_error_t{415, "Unsupported: Only application/json is currently supported"};
     }
+     * */
     if (json_doc.size() > parser.capacity()) {
         if (parser.allocate(json_doc.size(), json_doc.size() / 2) != sj::SUCCESS)
             return default_error_t{500, "Out of memory"};
